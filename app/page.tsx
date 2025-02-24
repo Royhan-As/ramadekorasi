@@ -1,101 +1,135 @@
-import Image from "next/image";
+"use client";
+
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import dynamic from "next/dynamic";
+
+interface FeatureCardProps {
+  title: string;
+  description: string;
+  icon: string;
+  color: string;
+}
+const DynamicDecorationShowcase = dynamic(
+  () => import("@/components/DecorationShowcase"),
+  { ssr: false }
+);
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center">
+      <div className="w-full h-screen relative overflow-hidden bg-gradient-to-br from-purple-600 via-pink-500 to-red-500">
+        <Canvas className="absolute inset-0">
+          <PerspectiveCamera
+            makeDefault
+            position={[0, 0, 5]}
+          />
+          <ambientLight intensity={0.5} />
+          <spotLight
+            position={[10, 10, 10]}
+            angle={0.15}
+            penumbra={1}
+          />
+          <DynamicDecorationShowcase />
+          <OrbitControls enableZoom={false} />
+        </Canvas>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="absolute inset-0 flex items-center justify-center z-10"
+        >
+          <div className="text-center text-white">
+            <motion.h1
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+              className="text-6xl font-bold mb-4 shadow-text"
+            >
+              Rama Dekorasi & Ieda Zaidah Make Up
+            </motion.h1>
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1, duration: 0.5 }}
+              className="text-2xl mb-8 shadow-text"
+            >
+              Mewujudkan Keindahan dalam Setiap Momen Spesial Anda
+            </motion.p>
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 1.5, duration: 0.5 }}
+            >
+              <Button
+                asChild
+                className="mr-4 text-lg px-6 py-3 bg-white text-purple-600 hover:bg-purple-100"
+              >
+                <Link href="/services">Layanan Kami</Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="text-lg px-6 py-3 border-white text-white hover:bg-white hover:text-purple-600"
+              >
+                <Link href="/contact">Hubungi Kami</Link>
+              </Button>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+
+      <motion.section
+        style={{ y }}
+        className="py-24 bg-gradient-to-b from-red-100 to-purple-100 w-full"
+      >
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12 text-purple-800">
+            Mengapa Memilih Kami?
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <FeatureCard
+              title="Pengalaman"
+              description="Lebih dari 10 tahun pengalaman dalam industri dekorasi dan make up."
+              icon="✨"
+              color="bg-pink-400"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <FeatureCard
+              title="Kreativitas"
+              description="Desain unik dan personal untuk setiap klien."
+              icon="🎨"
+              color="bg-purple-400"
+            />
+            <FeatureCard
+              title="Profesionalisme"
+              description="Tim yang berdedikasi untuk mewujudkan visi Anda."
+              icon="🏆"
+              color="bg-red-400"
+            />
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </motion.section>
+    </main>
   );
 }
+
+function FeatureCard({ title, description, icon, color }: FeatureCardProps) {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className={`${color} p-6 rounded-lg shadow-lg text-center text-white`}
+    >
+      <div className="text-4xl mb-4">{icon}</div>
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <p>{description}</p>
+    </motion.div>
+  );
+}
+
