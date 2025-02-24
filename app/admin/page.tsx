@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import type React from "react";
+
+import { useState, type ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,10 +21,10 @@ export default function AdminDashboard() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<File | null>(null);
   const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // In a real application, you would send this data to your backend
     console.log({ title, description, price, image });
@@ -31,6 +33,12 @@ export default function AdminDashboard() {
     setDescription("");
     setPrice("");
     setImage(null);
+  };
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
   };
 
   return (
@@ -78,7 +86,7 @@ export default function AdminDashboard() {
                   id="image"
                   type="file"
                   accept="image/*"
-                  onChange={(e) => setImage(e.target.files[0])}
+                  onChange={handleImageChange}
                 />
               </div>
             </div>
