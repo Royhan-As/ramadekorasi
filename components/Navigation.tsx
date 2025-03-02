@@ -13,8 +13,17 @@ const Navigation = () => {
     closed: { opacity: 0, x: "100%" },
   };
 
+  const menuItems = [
+    { name: "Beranda", path: "/" },
+    { name: "Layanan", path: "/services" },
+    { name: "Galeri", path: "/gallery" },
+    { name: "Undangan", path: "/undangan" },
+    { name: "Kontak", path: "/contact" },
+    { name: "Login", path: "/admin/login" },
+  ];
+
   return (
-    <nav className="fixed w-full z-50 bg-gradient-to-r from-purple-600 via-pink-500 to-red-299 shadow-lg">
+    <nav className="fixed w-full z-50 bg-gradient-to-r from-purple-600 via-pink-500 to-red-300 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
@@ -27,30 +36,19 @@ const Navigation = () => {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              <Link
-                href="/"
-                className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Beranda
-              </Link>
-              <Link
-                href="/services"
-                className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Layanan
-              </Link>
-              <Link
-                href="/gallery"
-                className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Galeri
-              </Link>
-              <Link
-                href="/contact"
-                className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Kontak
-              </Link>
+              {menuItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.path}
+                  className={`${
+                    item.name === "Login"
+                      ? "text-black hover:text-blue-200"
+                      : "text-white hover:text-gray-200"
+                  } px-3 py-2 rounded-md text-sm font-medium`}
+                >
+                  {item.name}
+                </Link>
+              ))}
             </div>
           </div>
           <div className="md:hidden">
@@ -68,39 +66,19 @@ const Navigation = () => {
         initial="closed"
         animate={isOpen ? "open" : "closed"}
         variants={menuVariants}
-        className={`md:hidden absolute top-16 left-0 right-0 bg-white shadow-lg ${
-          isOpen ? "block" : "hidden"
-        }`}
+        className="md:hidden absolute top-16 left-0 right-0 bg-white shadow-lg"
       >
         <div className="px-2 pt-2 pb-3 space-y-1">
-          <Link
-            href="/"
-            className="text-gray-800 hover:bg-gray-100 block px-3 py-2 rounded-md text-base font-medium"
-            onClick={() => setIsOpen(false)}
-          >
-            Beranda
-          </Link>
-          <Link
-            href="/services"
-            className="text-gray-800 hover:bg-gray-100 block px-3 py-2 rounded-md text-base font-medium"
-            onClick={() => setIsOpen(false)}
-          >
-            Layanan
-          </Link>
-          <Link
-            href="/gallery"
-            className="text-gray-800 hover:bg-gray-100 block px-3 py-2 rounded-md text-base font-medium"
-            onClick={() => setIsOpen(false)}
-          >
-            Galeri
-          </Link>
-          <Link
-            href="/contact"
-            className="text-gray-800 hover:bg-gray-100 block px-3 py-2 rounded-md text-base font-medium"
-            onClick={() => setIsOpen(false)}
-          >
-            Kontak
-          </Link>
+          {menuItems.map((item) => (
+            <Link
+              key={item.name}
+              href={item.path}
+              className="text-gray-800 hover:bg-gray-100 block px-3 py-2 rounded-md text-base font-medium"
+              onClick={() => setIsOpen(false)}
+            >
+              {item.name}
+            </Link>
+          ))}
         </div>
       </motion.div>
     </nav>
