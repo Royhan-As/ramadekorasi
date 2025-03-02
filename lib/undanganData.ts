@@ -6,6 +6,7 @@ export interface Undangan {
   title: string
   description: string
   date: string
+  address: string // Tambahkan field alamat
 }
 
 interface UndanganStore {

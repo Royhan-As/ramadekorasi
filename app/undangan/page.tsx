@@ -25,7 +25,10 @@ export default function UndanganPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p>{item.description}</p>
+              <p className="mb-2">{item.description}</p>
+              <p className="text-sm text-gray-600">
+                <strong>Alamat:</strong> {item.address}
+              </p>
             </CardContent>
           </Card>
         ))}

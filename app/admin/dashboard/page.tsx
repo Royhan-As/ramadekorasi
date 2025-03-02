@@ -21,7 +21,7 @@ export default function AdminDashboard() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState(""); // Tambahkan state untuk alamat
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const addUndangan = useUndanganStore((state) => state.addUndangan);
@@ -40,16 +40,12 @@ export default function AdminDashboard() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (title && description && date && address) {
-      addUndangan({ title, description, date, });
-      alert("Undangan berhasil ditambahkan!");
-      setTitle("");
-      setDescription("");
-      setDate("");
-      setAddress("");
-    } else {
-      alert("Harap isi semua bidang!");
-    }
+    addUndangan({ title, description, date, address }); // Tambahkan alamat ke data yang disimpan
+    alert("Undangan berhasil ditambahkan!");
+    setTitle("");
+    setDescription("");
+    setDate("");
+    setAddress(""); // Reset field alamat
   };
 
   const handleLogout = () => {
@@ -74,7 +70,7 @@ export default function AdminDashboard() {
           <CardDescription>Masukkan detail undangan baru</CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Input
