@@ -51,6 +51,12 @@ const items: GalleryItem[] = [
     description: "Riasan dengan baju yang elegan untuk menyambut undangan",
     image: "/assets/images/Makeup4.jpg",
   },
+  {
+    id: 6,
+    title: "Make Temangan",
+    description: "Riasan dengan baju yang elegan untuk menyambut Pisan",
+    image: "/assets/images/Makeup5.jpg",
+  },
 ];
 
 const fadeInUp = {
