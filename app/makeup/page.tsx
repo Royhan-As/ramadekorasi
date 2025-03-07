@@ -17,38 +17,39 @@ interface GalleryItem {
   id: number;
   title: string;
   description: string;
-  price: string;
   image: string;
 }
 
 const items: GalleryItem[] = [
   {
     id: 1,
-    title: "Dekorasi Pernikahan Elegan",
-    description: "Nuansa Rama Dekorasi untuk pernikahan mewah",
-    price: "Rp 5.000.000",
-    image: "/assets/images/1.jpg",
+    title: "Adat Manten Madura",
+    description: "Nuansa Melati dengan adat manten madura",
+    image: "/assets/images/Makeup1.jpg",
   },
   {
     id: 2,
     title: "Make Up Pengantin Modern",
     description: "Riasan natural dengan melati",
-    price: "Rp 5.000.000",
     image: "/assets/images/14.jpg",
   },
   {
     id: 3,
-    title: "Dekorasi Teras",
-    description: "Tema favorit elegan di teras",
-    price: "Rp 3.000.000",
-    image: "/assets/images/5.jpg",
+    title: "Adat Jawa",
+    description: "Si putih dengan adat jawanya dan mempunyai keistimewaan",
+    image: "/assets/images/Makeup2.jpg",
   },
   {
     id: 4,
-    title: "Make Up karnaval",
-    description: "Riasan karnaval untuk pawai haflatu imtihan",
-    price: "Rp 2.000.000",
-    image: "/assets/images/cilik.jpg",
+    title: "Make Up Temangan",
+    description: "Riasan Temangan dengan baju Merah maron",
+    image: "/assets/images/Makeup3.jpg",
+  },
+  {
+    id: 5,
+    title: "Make Up Undangan",
+    description: "Riasan dengan baju yang elegan untuk menyambut undangan",
+    image: "/assets/images/Makeup4.jpg",
   },
 ];
 
@@ -83,7 +84,7 @@ export default function Gallery() {
         animate="animate"
         className="text-5xl font-bold mb-12 text-center bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text"
       >
-        Galeri Karya Kami
+        Galeri Idha Zaidah Make up
       </motion.h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
@@ -100,16 +101,17 @@ export default function Gallery() {
               className="overflow-hidden cursor-pointer h-full flex flex-col transition-shadow hover:shadow-xl"
               onClick={() => handleCardClick(item)}
             >
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-80 overflow-hidden">
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
-                  className="object-cover transition-transform duration-300 hover:scale-110"
+                  className="object-contain object-[center_bottom] transition-transform duration-300 hover:scale-110"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   priority={index < 2}
                 />
               </div>
+
               <CardHeader>
                 <CardTitle className="text-xl font-bold">
                   {item.title}
@@ -119,9 +121,7 @@ export default function Gallery() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex-grow">
-                <p className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text">
-                  {item.price}
-                </p>
+                <p className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text"></p>
               </CardContent>
               <CardFooter>
                 <Button
@@ -156,12 +156,12 @@ export default function Gallery() {
               className="bg-white rounded-lg overflow-hidden max-w-3xl w-full"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative h-80">
+              <div className="relative h-[60vh]">
                 <Image
                   src={selectedItem.image}
                   alt={selectedItem.title}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="(max-width: 1200px) 100vw, 1200px"
                   priority
                 />
@@ -171,9 +171,6 @@ export default function Gallery() {
                   {selectedItem.title}
                 </h2>
                 <p className="text-gray-600 mb-4">{selectedItem.description}</p>
-                <p className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text mb-4">
-                  {selectedItem.price}
-                </p>
                 <div className="flex gap-4">
                   <Button
                     className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
@@ -181,15 +178,7 @@ export default function Gallery() {
                   >
                     Tutup
                   </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      // Implementasi fungsi pemesanan
-                      console.log("Pesan:", selectedItem.title);
-                    }}
-                  >
-                    Pesan Sekarang
-                  </Button>
+
                 </div>
               </div>
             </motion.div>

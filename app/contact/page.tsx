@@ -14,8 +14,8 @@ import { Facebook, MessageCircle } from "lucide-react";
 
 export default function Contact() {
   const whatsappNumber = "+62 877-4016-5356"; // Ganti dengan nomor WhatsApp yang sebenarnya
-  const facebookUrl = "https://www.facebook.com/ramadekorasi.iedazaidah"; // Ganti dengan URL Facebook yang sebenarnya
-  const tiktokUrl = "https://www.tiktok.com/@ramadekorasi.iedazaidah"; // Ganti dengan URL TikTok yang sebenarnya
+  const facebookUrl = "https://www.facebook.com/share/153cRw961F/"; // Ganti dengan URL Facebook yang sebenarnya
+  const tiktokUrl = "https://www.tiktok.com/@iedazaidah_?_t=ZS-8uSCtY9KNkN&_r=1"; // Ganti dengan URL TikTok yang sebenarnya
 
   return (
     <div className="container mx-auto px-4 py-24">

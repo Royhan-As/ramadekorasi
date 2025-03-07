@@ -16,10 +16,10 @@ const Navigation = () => {
   const menuItems = [
     { name: "Beranda", path: "/" },
     { name: "Layanan", path: "/services" },
-    { name: "Galeri", path: "/gallery" },
+    { name: "Make Up", path: "/makeup" },
+    { name: "Dekorasi", path: "/dekorasi" },
     { name: "Undangan", path: "/undangan" },
     { name: "Kontak", path: "/contact" },
-    { name: "Login", path: "/admin/login" },
   ];
 
   return (
@@ -40,15 +40,52 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   href={item.path}
-                  className={`${
-                    item.name === "Login"
-                      ? "text-black hover:text-blue-200"
-                      : "text-white hover:text-gray-200"
-                  } px-3 py-2 rounded-md text-sm font-medium`}
+                  className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
                 >
                   {item.name}
                 </Link>
               ))}
+
+              {/* Login Button with Animated Rectangle */}
+              <div className="relative px-6 py-3">
+                <Link
+                  href="/admin/login"
+                  className="text-white font-medium relative z-10"
+                >
+                  Login
+                </Link>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-full h-full relative">
+                    <svg
+                      className="absolute inset-0 w-full h-full"
+                      viewBox="0 0 100 50"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <motion.rect
+                        x="15"
+                        y="5"
+                        width="70"
+                        height="40"
+                        rx="6"
+                        ry="6"
+                        fill="transparent"
+                        stroke="#1e3a8a" // Warna biru tua
+                        strokeWidth="2"
+                        initial={{ pathLength: 0 }}
+                        animate={{
+                          pathLength: [0, 1, 1, 1, 0],
+                          pathOffset: [0, 0, 0.25, 0.5, 0.75],
+                          transition: {
+                            duration: 4,
+                            repeat: Number.POSITIVE_INFINITY,
+                            ease: "linear",
+                          },
+                        }}
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="md:hidden">
@@ -79,6 +116,17 @@ const Navigation = () => {
               {item.name}
             </Link>
           ))}
+
+          {/* Mobile Login Button */}
+          <div className="relative">
+            <Link
+              href="/admin/login"
+              className="text-gray-800 hover:bg-gray-100 block px-3 py-2 rounded-md text-base font-medium"
+              onClick={() => setIsOpen(false)}
+            >
+              Login
+            </Link>
+          </div>
         </div>
       </motion.div>
     </nav>
